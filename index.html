@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memo Note</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add favicon link -->
+    <link rel="icon" type="image/png" href="note.png">
+    <!-- Alternative formats for better cross-browser support -->
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+    <div class="main-card">
+        <div class="top-bar">
+            <span class="icon home-icon">
+                <!-- Home SVG -->
+                <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M12 3l9 9h-3v9h-12v-9h-3z"/></svg>
+            </span>
+            <span class="icon user-icon" id="userIcon">
+                <!-- User SVG -->
+                <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+            </span>
+        </div>
+        <div class="memo-area">
+            <div class="memo-lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="pencil">
+                <!-- Pencil SVG -->
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                    <g>
+                        <rect x="30" y="20" width="30" height="30" rx="5" fill="#FFD600" transform="rotate(30 40 35)"/>
+                        <rect x="55" y="45" width="10" height="10" rx="2" fill="#F9A825" transform="rotate(30 60 50)"/>
+                        <rect x="60" y="55" width="8" height="8" rx="2" fill="#E57373" transform="rotate(30 64 59)"/>
+                        <polygon points="70,70 75,75 65,75" fill="#fff"/>
+                        <polygon points="75,75 70,70 77,77" fill="#222"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div class="modal" id="signInModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signInForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            <div id="signInMessage"></div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signUpModal"> <!- Previously signInModal ->
+        <div class="modal-content user-account-modal"> <!- Added user-account-modal class for specific styling ->
+            <div class="modal-header">
+                <span class="back-arrow" id="closeSignUpModal">&#10094;</span> <!- Back arrow, also acts as close ->
+                <h2>USER ACCOUNT</h2>
+            </div>
+            <form id="signUpForm">
+                <div class="input-group">
+                    <input type="text" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="passwordSignUp" placeholder="Password" required> <!- Changed id to avoid conflict ->
+                </div>
+                <button type="submit" class="btn-signup">Sign up</button>
+            </form>
+            <div class="social-signup">
+                <p>Sign up with</p>
+                <div class="social-icons">
+                    <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&response_type=code&redirect_uri=YOUR_REDIRECT_URI_HERE&client_id=YOUR_GOOGLE_CLIENT_ID_HERE" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="social-icon">
+                    </a>
+                    <a href="https://www.facebook.com/v12.0/dialog/oauth?client_id=YOUR_FACEBOOK_CLIENT_ID_HERE&redirect_uri=YOUR_REDIRECT_URI_HERE&scope=email,public_profile" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="social-icon">
+                    </a>
+                </div>
+            </div>
+            <div id="signUpMessage"></div>
+        </div>
+    </div>
+
+    <!-- Success Pop-up Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success-popup">
+            <div class="success-popup-top">
+                <div class="success-icon-container">
+                    <!-- SVG Checkmark -->
+                    <svg width="70" height="70" viewBox="0 0 70 70">
+                        <circle cx="35" cy="35" r="32" fill="#39325C"/> <!-- Dark circle -->
+                        <polyline points="20,35 30,45 50,25" style="fill:none;stroke:#FFFFFF;stroke-width:5;stroke-linecap:round;stroke-linejoin:round" /> <!-- White check -->
+                    </svg>
+                </div>
+                <p class="success-title-text">SUCCESS</p>
+            </div>
+            <div class="success-popup-bottom">
+                <p class="success-message-text">Congratulations, your account has been successfully created.</p>
+                <button class="btn-continue" id="continueBtn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Page -->
+    <div class="main-card welcome-page" id="welcomePage" style="display: none;">
+        <div class="top-bar">
+            <span class="user-profile" id="welcomeUserIcon">
+                <!-- User SVG -->
+                <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
+                <span class="user-name" id="profileUserName">Juan Dela Cruz</span>
+            </span>
+        </div>
+        <div class="welcome-content">
+            <h1 class="welcome-text">WELCOME <span id="welcomeUserName">JUAN</span>!</h1>
+            
+            <div class="feature-buttons">
+                <div class="feature-button">
+                    <svg width="30" height="30" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                    <span>TO DO LIST</span>
+                </div>
+                <div class="feature-button">
+                    <svg width="30" height="30" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    <span>NOTES</span>
+                </div>
+                <div class="feature-button">
+                    <svg width="30" height="30" viewBox="0 0 24 24"><path fill="#F9D7A0" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                    <span>REMINDER</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Account/Logout Modal -->
+    <div class="modal" id="userAccountModal">
+        <div class="modal-content user-account-modal">
+            <div class="modal-header">
+                <span class="back-arrow" id="closeUserAccountModal">&#10094;</span>
+                <h2>USER ACCOUNT</h2>
+            </div>
+            <div class="user-account-details">
+                <div class="input-group">
+                    <input type="text" id="displayFirstName" disabled>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="displayLastName" disabled>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="displayEmail" disabled>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="displayPassword" value="••••••••" disabled>
+                </div>
+                <button class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
