@@ -1,0 +1,384 @@
+body {
+    background: #2E2847;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.main-card {
+    background: #4B4377;
+    width: 400px;
+    margin: 40px auto;
+    border-radius: 28px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    padding: 24px 0 0 0;
+}
+
+.top-bar {
+    background: #39325C;
+    border-radius: 18px 18px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px 18px 32px;
+}
+
+.icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.memo-area {
+    background: #39325C;
+    margin: 24px;
+    border-radius: 24px;
+    min-height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.memo-lines {
+    flex: 1;
+    margin-left: 32px;
+    margin-top: 32px;
+}
+
+.memo-lines .line {
+    height: 2px;
+    width: 180px;
+    background: #fff;
+    margin-bottom: 24px;
+    opacity: 0.8;
+}
+
+.pencil {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4); /* Semi-transparent overlay */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff; /* Default background, will be overridden for user-account-modal */
+    padding: 32px 24px;
+    border-radius: 12px;
+    width: 320px; /* Default width */
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    position: relative;
+    text-align: center;
+}
+
+/* Styles for the new User Account Modal */
+.user-account-modal {
+    background: #39325C; /* Dark purple background from image */
+    color: #F9D7A0; /* Light beige/tan text color for titles */
+    width: 360px; /* Adjusted width to better fit content */
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.user-account-modal .modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #4B4377; /* Separator line */
+}
+
+.user-account-modal .back-arrow {
+    font-size: 30px;
+    font-weight: bold;
+    color: #F9D7A0;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.user-account-modal h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #F9D7A0;
+    margin: 0;
+    text-align: left;
+}
+
+.user-account-modal .input-group {
+    margin-bottom: 20px;
+}
+
+.user-account-modal input[type="text"],
+.user-account-modal input[type="email"],
+.user-account-modal input[type="password"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #8A82A3; /* Light purple/gray underline */
+    color: #fff; /* White text for input */
+    padding: 10px 0;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.user-account-modal input::placeholder {
+    color: #B0A8CC; /* Lighter placeholder text */
+    opacity: 0.7;
+}
+
+.user-account-modal input:focus {
+    outline: none;
+    border-bottom-color: #F9D7A0; /* Highlight on focus */
+}
+
+.user-account-modal .btn-signup {
+    width: 100%;
+    padding: 12px;
+    background: #F9D7A0; /* Light beige/tan button background */
+    color: #39325C; /* Dark text on button */
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.user-account-modal .social-signup {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.user-account-modal .social-signup p {
+    color: #B0A8CC; /* Light text for "Sign up with" */
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.user-account-modal .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.user-account-modal .social-icon {
+    width: 30px; /* Adjust size as needed */
+    height: 30px;
+    cursor: pointer;
+    vertical-align: middle; /* Helps align if link adds extra space */
+}
+
+.social-link {
+    text-decoration: none; /* Removes underline from the link */
+    display: inline-block; /* Ensures proper layout */
+}
+
+#signUpMessage { /* Renamed from signInMessage */
+    margin-top: 15px;
+    color: #E57373; /* Default error color */
+    font-size: 15px;
+}
+
+/* Remove old sign-in specific styles if any, or ensure they don't conflict */
+/* For example, the old .close button style might not be needed if using .back-arrow */
+.close { 
+    /* If this was for the old modal's X, it might need adjustment or removal 
+       if .back-arrow is the primary close mechanism for the new modal */
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888; /* This color might not fit the new design */
+    cursor: pointer;
+}
+
+
+#signInForm input { /* Old styles, ensure they don't conflict or remove if not needed */
+    width: 90%;
+    padding: 10px;
+    margin: 12px 0;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+#signInForm button { /* Old styles, ensure they don't conflict or remove if not needed */
+    width: 100%;
+    padding: 10px;
+    background: #4B4377;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#signInMessage { /* This ID is now #signUpMessage */
+    margin-top: 12px;
+    color: #E57373;
+    font-size: 15px;
+}
+
+
+/* Styles for Success Pop-up Modal */
+.success-popup {
+    background-color: #39325C; /* Dark purple background for the bottom part */
+    color: #FFFFFF; /* White text for the bottom part */
+    width: 340px; /* Adjust width as needed */
+    padding: 0; /* Remove default padding from modal-content */
+    border-radius: 20px; /* Rounded corners for the whole popup */
+    text-align: center;
+    overflow: hidden; /* To ensure top part's rounded corners are visible */
+}
+
+.success-popup-top {
+    background-color: #F9D7A0; /* Beige background for the top part */
+    padding: 30px 20px 20px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.success-icon-container {
+    margin-bottom: 10px;
+}
+
+.success-title-text {
+    color: #39325C; /* Dark purple text for "SUCCESS" */
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.success-popup-bottom {
+    padding: 25px 30px 30px 30px;
+}
+
+.success-message-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.btn-continue {
+    background-color: #F9D7A0; /* Beige background for the button */
+    color: #39325C; /* Dark purple text for the button */
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    padding: 12px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-continue:hover {
+    background-color: #eecb90; /* Slightly darker beige on hover */
+}
+
+
+/* Welcome Page Styles */
+.welcome-page {
+    display: none; /* Initially hidden */
+}
+
+.welcome-page .top-bar {
+    justify-content: flex-start;
+    padding: 15px 25px;
+}
+
+.user-profile {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.user-profile {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.user-profile:hover {
+    opacity: 0.8;
+}
+.user-name {
+    color: #F9D7A0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 300px;
+    background: #39325C;
+    margin: 24px;
+    border-radius: 24px;
+}
+
+.welcome-text {
+    color: #F9D7A0;
+    font-size: 32px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.feature-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.feature-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #F9D7A0;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.feature-button span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* User Account/Logout Modal Styles */
+.user-account-details input[type="text"],
+.user-account-details input[type="email"],
+.user-account-details input[type="password"] {
+    color: #B0A8CC;
+    cursor: default;
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 12px;
+    background: #F9D7A0;
+    color: #39325C;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-logout:hover {
+    background: #eecb90;
+}
